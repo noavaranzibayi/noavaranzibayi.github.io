@@ -142,6 +142,51 @@
         border-bottom:1px solid var(--line);
       }
 
+      .mobile-bar{
+        display:none;
+        position:fixed;
+        left: 14px;
+        right: 14px;
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        z-index: 30;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.80);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 18px 48px rgba(2, 6, 23, .16);
+      }
+
+      .mobile-btn{
+        flex: 1 1 0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap: 8px;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.75);
+        font-weight: 600;
+        white-space: nowrap;
+        text-decoration:none;
+        transition: transform .15s ease, background .15s ease;
+      }
+
+      .mobile-btn:hover{ background: rgba(255,255,255,.95); transform: translateY(-1px); }
+
+      .mobile-btn.primary{
+        border-color: rgba(124,58,237,.30);
+        background: linear-gradient(135deg, rgba(124,58,237,.92), rgba(6,182,212,.78));
+        color: #ffffff;
+      }
+
+      .mobile-btn.primary:hover{ background: linear-gradient(135deg, rgba(124,58,237,.98), rgba(6,182,212,.86)); }
+
+      .mobile-btn .ico{ width: 20px; height: 20px; }
+
       .topbar-inner{
         display:flex;
         align-items:center;
@@ -157,6 +202,9 @@
         font-weight:700;
         letter-spacing: -.3px;
       }
+
+      .brand{ text-decoration:none; }
+      .brand:hover{ text-decoration:none; }
 
       .dot{
         width:12px;
@@ -412,6 +460,18 @@
 
       .kicker{ color: rgba(2,6,23,.75); }
 
+      /* Services: emoji icons without background for clarity */
+      .services .kicker{
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 0;
+        font-size: 28px;
+        color: inherit;
+      }
+
       .cta{
         padding: 18px;
         border-radius: var(--radius);
@@ -530,15 +590,17 @@
       }
 
       @media (max-width: 620px){
-        .topbar-inner{ align-items:flex-start; }
+        .topbar-inner{ align-items:center; flex-wrap:wrap; }
         header.hero{ padding-top: 24px; }
         .hero-copy{ padding: 20px; }
+        .mobile-bar{ display:flex; }
+        body{ padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
       }
 
       @media (max-width: 460px){
         .services{ grid-template-columns: 1fr; }
         .hero-copy{ padding: 18px; }
-        .kicker{ width: 42px; height: 42px; font-size: 21px; }
+        .services .kicker{ width: 44px; height: 44px; font-size: 27px; }
       }
 
       @media (prefers-reduced-motion: reduce){
@@ -548,13 +610,13 @@
     </style>
   </head>
 
-  <body>
+  <body id="top">
     <div class="topbar">
       <div class="container topbar-inner">
-        <div class="brand" aria-label="نوآوران زیبایی">
+        <a class="brand" href="#top" aria-label="نوآوران زیبایی">
           <span class="dot" aria-hidden="true"></span>
           <span data-i18n="brand">نوآوران زیبایی</span>
-        </div>
+        </a>
 
         <div class="controls" aria-label="کنترل‌ها">
           <div class="lang-switch" aria-label="زبان">
@@ -565,6 +627,23 @@
         </div>
       </div>
     </div>
+
+    <nav class="mobile-bar" aria-label="Mobile actions">
+      <a class="mobile-btn primary" href="tel:0513232" aria-label="Call">
+        <svg class="ico lg" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2c-2.9-.3-6-.1-10.7-4.8S4.6 9.3 4.3 6.3A2 2 0 0 1 6.3 4.1h3a2 2 0 0 1 2 1.7l.5 2.7a2 2 0 0 1-.6 1.7l-1 1a14.5 14.5 0 0 0 6 6l1-1a2 2 0 0 1 1.7-.6l2.7.5a2 2 0 0 1 1.7 1.8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span data-i18n="mobile.call">تماس</span>
+      </a>
+      <a class="mobile-btn" href="https://ig.me/m/noavaran_zibayi" target="_blank" rel="noopener noreferrer" aria-label="Instagram DM">
+        <svg class="ico lg" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4z" stroke="currentColor" stroke-width="2"/>
+          <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span data-i18n="mobile.dm">دایرکت اینستاگرام</span>
+      </a>
+    </nav>
 
     <header class="hero">
       <div class="container hero-grid">
@@ -828,6 +907,7 @@
             brand: 'نوآوران زیبایی',
             menu: 'منو',
             nav: { about: 'درباره ما', services: 'خدمات', why: 'چرا نوآوران؟', contact: 'رزرو نوبت' },
+            mobile: { call: 'تماس', dm: 'دایرکت اینستاگرام' },
             hero: {
               title: 'زیباییِ طبیعی، با رویکردی علمی و خدماتی دقیق',
               lead: 'نوآوران زیبایی با تمرکز بر بهبود ظاهر و زیبایی شما، بهترین راهکارها و روش‌های نوین را برای مراقبت از شما ارائه می‌دهد. ما با تکیه بر تخصص و تجربه، در حوزه‌های <strong>پوست</strong>، <strong>مو</strong> و <strong>لیزر</strong> همراه شما هستیم.',
@@ -903,6 +983,7 @@
             brand: 'نوآوران للتجميل',
             menu: 'القائمة',
             nav: { about: 'من نحن', services: 'الخدمات', why: 'لماذا نوآوران؟', contact: 'حجز موعد' },
+            mobile: { call: 'اتصال', dm: 'رسالة إنستغرام' },
             hero: {
               title: 'جمال طبيعي بمنهج علمي وخدمة دقيقة',
               lead: 'نقدّم في نوآوران أفضل الحلول والأساليب الحديثة للعناية بجمالك. وبخبرتنا، نرافقك في مجالات <strong>البشرة</strong> و<strong>الشعر</strong> و<strong>الليزر</strong> للوصول إلى نتيجة أنيقة وآمنة.',
@@ -978,6 +1059,7 @@
             brand: 'Noavaran Beauty',
             menu: 'Menu',
             nav: { about: 'About', services: 'Services', why: 'Why Us', contact: 'Book' },
+            mobile: { call: 'Call', dm: 'Instagram DM' },
             hero: {
               title: 'Natural beauty, delivered with care and precision',
               lead: 'At Noavaran, we offer modern solutions to enhance your look with confidence. With experience and expertise, we support you across <strong>skin</strong>, <strong>hair</strong>, and <strong>laser</strong> services — thoughtfully and professionally.',
