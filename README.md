@@ -5,7 +5,7 @@
 کلینیک نوآوران زیبایی (پوست، مو و لیزر)
 
 <p>
-	<img src="assets/img.png" alt="کلینیک نوآوران زیبایی" width="860" />
+	<img src="assets/img.png" alt="کلینیک نوآوران زیبایی" width="260" />
 </p>
 
 <p>
